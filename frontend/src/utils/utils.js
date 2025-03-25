@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://hustlelearn.onrender.com";
+export const BACKEND_URL = "https://hustlelearn.onrender.com/api/v1";
