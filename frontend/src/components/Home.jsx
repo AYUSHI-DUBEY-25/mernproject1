@@ -153,7 +153,7 @@ function Home() {
                             <div className='mt-3'>
                                 <p>Follow at</p>
                                 <div className='flex space-x-4 mt-2'>
-                                    <a href="linkedin.com/in/ayushi-dubey-57aa5a2b0" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://www.linkedin.com/in/ayushi-dubey-57aa5a2b0" target="_blank" rel="noopener noreferrer">
                                         <FaLinkedin className='hover:text-purple-400 duration-300' size={24} />
                                     </a>
                                     <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer">
