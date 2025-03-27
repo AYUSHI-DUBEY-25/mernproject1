@@ -4,9 +4,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import { RiHome2Fill } from "react-icons/ri";
 import { FaDiscourse } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa6";
-import { IoMdSettings } from "react-icons/io";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
-import { FiSearch } from "react-icons/fi";
 import { HiMenu, HiX } from "react-icons/hi"; // Import menu and close icons
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
