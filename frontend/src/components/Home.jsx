@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import toast from 'react-hot-toast';
 import { BACKEND_URL } from '../utils/utils';
+import logo from "../../public/logo.webp";
 
 function Home() {
     const [courses, setCourses] = useState([]);
@@ -73,7 +74,7 @@ function Home() {
                 {/* Header */}
                 <header className='flex items-center justify-between py-4 flex-wrap'>
                     <div className='flex items-center space-x-2'>
-                        <img src='logo.webp' className='w-16 h-16 rounded-full' alt="logo" />
+                    <img src={logo} alt="" className="w-10 h-10 rounded-full" />
                         <h1 className='text-xl md:text-2xl text-pink-600 font-bold font-serif'>
                             HustleLearn
                         </h1>
@@ -147,7 +148,7 @@ function Home() {
                     <div className='grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left'>
                         <div className='flex flex-col items-center md:items-start'>
                             <div className='flex items-center space-x-2'>
-                                <img src='logo.webp' className='w-14 h-14 rounded-full' alt="logo" />
+                            <img src={logo} alt="" className="w-10 h-10 rounded-full" />
                                 <h1 className='text-xl text-pink-600 font-bold font-serif'>HustleLearn</h1>
                             </div>
                             <div className='mt-3'>
