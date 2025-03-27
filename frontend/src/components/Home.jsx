@@ -156,7 +156,7 @@ function Home() {
                                     <a href="https://www.linkedin.com/in/ayushi-dubey-57aa5a2b0" target="_blank" rel="noopener noreferrer">
                                         <FaLinkedin className='hover:text-purple-400 duration-300' size={24} />
                                     </a>
-                                    <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://twitter.com/AyushiDube52654" target="_blank" rel="noopener noreferrer">
                                         <FaXTwitter className='hover:text-purple-400 duration-300' size={24} />
                                     </a>
                                 </div>
