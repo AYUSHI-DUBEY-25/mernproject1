@@ -58,7 +58,7 @@ function Purchases() {
       });
       toast.success(response.data.message);
       localStorage.removeItem("user");
-      navigate("/login");
+      // navigate("/login");
       setIsLoggedIn(false);
     } catch (error) {
       console.log("Error in logging out:", error);
