@@ -179,7 +179,6 @@
 
 // export default Purchases;
 
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -187,53 +186,40 @@ import { FaDiscourse, FaDownload } from "react-icons/fa";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { RiHome2Fill } from "react-icons/ri";
 import { HiMenu, HiX } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BACKEND_URL } from "../utils/utils";
 
 function Purchases() {
   const [purchases, setPurchases] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const navigate = useNavigate();
-
-  // Retrieve user token safely
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const token = user?.token;
-
-  // Check authentication on mount
   useEffect(() => {
-    if (token) {
+    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    const storedToken = storedUser?.token;
+
+    if (storedToken) {
       setIsLoggedIn(true);
+      fetchPurchases(storedToken);
     } else {
       setIsLoggedIn(false);
-      navigate("/login");
     }
   }, []);
 
-  // Fetch purchases only if the user is authenticated
-  useEffect(() => {
-    if (!token) return;
+  const fetchPurchases = async (token) => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/user/purchases`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      setPurchases(response.data.courseData || []);
+    } catch (error) {
+      setErrorMessage("Failed to fetch purchase data");
+      console.error("Error fetching purchases:", error);
+    }
+  };
 
-    const fetchPurchases = async () => {
-      try {
-        const response = await axios.get(`${BACKEND_URL}/user/purchases`, {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        });
-
-        setPurchases(response.data.courseData || []);
-      } catch (error) {
-        setErrorMessage("Failed to fetch purchase data");
-        console.error("Error fetching purchases:", error);
-      }
-    };
-
-    fetchPurchases();
-  }, [token]);
-
-  // Logout function
   const handleLogout = async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/user/logout`, {
@@ -242,14 +228,12 @@ function Purchases() {
       toast.success(response.data.message);
       localStorage.removeItem("user");
       setIsLoggedIn(false);
-      navigate("/login");
     } catch (error) {
-      console.error("Error in logging out:", error);
+      console.log("Error in logging out:", error);
       toast.error(error?.response?.data?.errors || "Error in logging out");
     }
   };
 
-  // Toggle sidebar visibility
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -280,7 +264,7 @@ function Purchases() {
               </a>
             </li>
             <li>
-              {token ? (
+              {isLoggedIn ? (
                 <button onClick={handleLogout} className="flex items-center">
                   <IoLogOut className="mr-2" /> Logout
                 </button>
@@ -299,11 +283,7 @@ function Purchases() {
         className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg"
         onClick={toggleSidebar}
       >
-        {isSidebarOpen ? (
-          <HiX className="text-2xl" />
-        ) : (
-          <HiMenu className="text-2xl" />
-        )}
+        {isSidebarOpen ? <HiX className="text-2xl" /> : <HiMenu className="text-2xl" />}
       </button>
 
       {/* Main Content */}
@@ -312,49 +292,46 @@ function Purchases() {
           isSidebarOpen ? "ml-64" : "ml-0"
         } md:ml-64`}
       >
-        <h2 className="text-xl font-semibold mt-6 md:mt-0 mb-6">
-          My Purchases
-        </h2>
+        <h2 className="text-xl font-semibold mt-6 md:mt-0 mb-6">My Purchases</h2>
 
-        {/* Error message */}
-        {errorMessage && (
-          <div className="text-red-500 text-center mb-4">{errorMessage}</div>
-        )}
-
-        {/* Render purchases */}
-        {purchases.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {purchases.map((purchase, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-md p-6 mb-6"
-              >
-                <div className="flex flex-col items-center space-y-4">
-                  {/* Course Image */}
-                  <img
-                    className="rounded-lg w-full h-48 object-cover"
-                    src={
-                      purchase.image?.url || "https://via.placeholder.com/200"
-                    }
-                    alt={purchase.title}
-                  />
-                  <div className="text-center">
-                    <h3 className="text-lg font-bold">{purchase.title}</h3>
-                    <p className="text-gray-500">
-                      {purchase.description?.length > 100
-                        ? `${purchase.description.slice(0, 100)}...`
-                        : purchase.description}
-                    </p>
-                    <span className="text-green-700 font-semibold text-sm">
-                      ₹{purchase.price} only
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* If not logged in, show login message */}
+        {!isLoggedIn ? (
+          <p className="text-gray-500 text-center text-lg">Please login to access purchases.</p>
         ) : (
-          <p className="text-gray-500">You have no purchases yet.</p>
+          <>
+            {errorMessage && <div className="text-red-500 text-center mb-4">{errorMessage}</div>}
+
+            {/* Render purchases */}
+            {purchases.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {purchases.map((purchase, index) => (
+                  <div key={index} className="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div className="flex flex-col items-center space-y-4">
+                      {/* Course Image */}
+                      <img
+                        className="rounded-lg w-full h-48 object-cover"
+                        src={purchase.image?.url || "https://via.placeholder.com/200"}
+                        alt={purchase.title}
+                      />
+                      <div className="text-center">
+                        <h3 className="text-lg font-bold">{purchase.title}</h3>
+                        <p className="text-gray-500">
+                          {purchase.description?.length > 100
+                            ? `${purchase.description.slice(0, 100)}...`
+                            : purchase.description}
+                        </p>
+                        <span className="text-green-700 font-semibold text-sm">
+                          ₹{purchase.price} only
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500">You have no purchases yet.</p>
+            )}
+          </>
         )}
       </div>
     </div>
