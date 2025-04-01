@@ -122,8 +122,8 @@ function Signup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [errorMessage, setErrorMessage] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false); // State to handle the mobile menu toggle
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -166,23 +166,30 @@ function Signup() {
             </Link>
           </div>
 
-          {/* Navbar for mobile */}
-          <div className="sm:hidden flex items-center space-x-4">
-            <Link
-              to={"/login"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded"
+          {/* Mobile Hamburger Icon */}
+          <div className="sm:hidden flex items-center">
+            <button
+              className="text-white focus:outline-none"
+              onClick={() => setMenuOpen(!menuOpen)} // Toggle the menu open/close
             >
-              Login
-            </Link>
-            <Link
-              to={"/courses"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded"
-            >
-              Join Now
-            </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
 
-          {/* Navbar for desktop */}
+          {/* Navbar Links for Desktop */}
           <div className="hidden sm:flex items-center space-x-4">
             <Link
               to={"/login"}
@@ -198,6 +205,26 @@ function Signup() {
             </Link>
           </div>
         </header>
+
+        {/* Mobile Navbar */}
+        <div
+          className={`sm:hidden ${menuOpen ? "block" : "hidden"} absolute top-16 left-0 w-full bg-gray-900 p-4`}
+        >
+          <Link
+            to={"/login"}
+            className="block text-white py-2 px-4 border-b border-gray-700"
+            onClick={() => setMenuOpen(false)} // Close menu when clicked
+          >
+            Login
+          </Link>
+          <Link
+            to={"/courses"}
+            className="block text-white py-2 px-4 border-b border-gray-700"
+            onClick={() => setMenuOpen(false)} // Close menu when clicked
+          >
+            Join Now
+          </Link>
+        </div>
 
         {/* Signup Form */}
         <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full sm:w-[400px] md:w-[500px] mt-20">
