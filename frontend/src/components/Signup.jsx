@@ -110,6 +110,7 @@
 
 // export default Signup
 
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -155,9 +156,9 @@ function Signup() {
 
   return (
     <div className="bg-gradient-to-r from-black to-gray-800 min-h-screen">
-      <div className="h-full container mx-auto flex items-center justify-center text-white px-4 sm:px-6 md:px-8">
+      <div className="flex items-center justify-center text-white px-4 sm:px-6 md:px-8">
         {/* Header */}
-        <header className="absolute top-0 left-0 w-full flex justify-between items-center p-4 sm:p-5">
+        <header className="absolute top-0 left-0 w-full flex justify-between items-center p-5">
           <div className="flex items-center space-x-2">
             <img
               src="logo.webp"
@@ -166,7 +167,7 @@ function Signup() {
             />
             <Link
               to={"/"}
-              className="text-lg sm:text-2xl text-pink-600 font-bold font-serif"
+              className="text-xl sm:text-2xl text-pink-600 font-bold font-serif"
             >
               HustleLearn
             </Link>
@@ -188,7 +189,7 @@ function Signup() {
         </header>
 
         {/* Signup Form */}
-        <div className="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-lg w-full sm:w-[400px] md:w-[500px] mt-10 sm:mt-20">
+        <div className="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-lg w-full sm:w-[400px] lg:w-[500px] mt-10 sm:mt-20">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
             Welcome to <span className="text-pink-600">HustleLearn</span>
           </h2>
