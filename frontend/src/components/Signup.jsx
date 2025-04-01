@@ -122,6 +122,7 @@ function Signup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -130,8 +131,18 @@ function Signup() {
     try {
       const response = await axios.post(
         `${BACKEND_URL}/user/signup`,
-        { firstName, lastName, email, password },
-        { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log("User signed up successfully", response.data);
       toast.success(response.data.message);
@@ -144,57 +155,100 @@ function Signup() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-black to-gray-800 min-h-screen flex flex-col items-center justify-center px-4">
-      {/* Header */}
-      <header className="absolute top-0 left-0 w-full flex justify-between items-center p-5">
-        <div className="flex items-center space-x-2">
-          <img src="logo.webp" className="w-16 h-16 rounded-full" alt="logo" />
-          <Link to="/" className="text-xl sm:text-2xl text-pink-600 font-bold font-serif">HustleLearn</Link>
+    <div className="bg-gradient-to-r from-black to-gray-800">
+      <div className="h-screen container mx-auto flex items-center justify-center text-white px-4 sm:px-8">
+        {/* Header */}
+        <header className="absolute top-0 left-0 w-full flex justify-between items-center p-5 sm:p-4">
+          <div className="flex items-center space-x-2">
+            <img src="logo.webp" className="w-20 h-20 rounded-full" alt="Logo" />
+            <Link to={"/"} className="text-xl sm:text-2xl text-pink-600 font-bold font-serif">
+              HustleLearn
+            </Link>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Link to={"/login"} className="bg-transparent text-white py-2 px-4 border border-white rounded text-sm sm:text-base">
+              Login
+            </Link>
+            <Link to={"/courses"} className="bg-transparent text-white py-2 px-4 border border-white rounded text-sm sm:text-base">
+              Join Now
+            </Link>
+          </div>
+        </header>
+
+        {/* Signup Form */}
+        <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full sm:w-[500px] mt-16 sm:mt-20">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
+            Welcome to <span className="text-pink-600">HustleLearn</span>
+          </h2>
+          <p className="text-center text-gray-400 mb-6 text-sm sm:text-base">
+            Signup to join!
+          </p>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="firstname" className="text-gray-400 mb-2 text-sm sm:text-base">
+                Firstname
+              </label>
+              <input
+                type="text"
+                id="firstname"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                placeholder="Enter Your Firstname"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="lastname" className="text-gray-400 mb-2 text-sm sm:text-base">
+                Lastname
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                placeholder="Enter Your Lastname"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="text-gray-400 mb-2 text-sm sm:text-base">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                placeholder="Enter Your Email"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="text-gray-400 mb-2 text-sm sm:text-base">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                placeholder="Enter Your Password"
+              />
+            </div>
+            {errorMessage && (
+              <div className="mb-4 text-red-500 text-center text-sm sm:text-base">
+                {errorMessage}
+              </div>
+            )}
+            <button
+              type="submit"
+              className="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-md text-white font-bold text-sm sm:text-base"
+            >
+              Signup
+            </button>
+          </form>
         </div>
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <Link to="/login" className="bg-transparent text-white py-2 px-3 sm:px-4 border border-white rounded">Login</Link>
-          <Link to="/courses" className="bg-transparent text-white py-2 px-3 sm:px-4 border border-white rounded">Join Now</Link>
-        </div>
-      </header>
-      
-      {/* Signup Form */}
-      <div className="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md sm:mt-20">
-        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
-          Welcome to <span className="text-pink-600">HustleLearn</span>
-        </h2>
-        <p className="text-center text-gray-400 mb-6">Signup to join!</p>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="firstname" className="text-gray-400">Firstname</label>
-            <input type="text" id="firstname" value={firstName} onChange={(e) => setFirstName(e.target.value)} 
-              className="w-full p-2 sm:p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500" 
-              placeholder="Enter Your Firstname" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="lastname" className="text-gray-400">Lastname</label>
-            <input type="text" id="lastname" value={lastName} onChange={(e) => setLastName(e.target.value)} 
-              className="w-full p-2 sm:p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500" 
-              placeholder="Enter Your Lastname" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="text-gray-400">Email</label>
-            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} 
-              className="w-full p-2 sm:p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500" 
-              placeholder="Enter Your Email" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="text-gray-400">Password</label>
-            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} 
-              className="w-full p-2 sm:p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500" 
-              placeholder="Enter Your Password" />
-          </div>
-          {errorMessage && (
-            <div className="mb-4 text-red-500 text-center">{errorMessage}</div>
-          )}
-          <button type="submit" className="w-full py-2 sm:py-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-md text-white font-bold">
-            Signup
-          </button>
-        </form>
       </div>
     </div>
   );
