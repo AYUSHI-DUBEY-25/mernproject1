@@ -165,11 +165,35 @@ function Signup() {
               HustleLearn
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link to={"/login"} className="bg-transparent text-white py-2 px-4 border border-white rounded">
+
+          {/* Navbar for mobile */}
+          <div className="sm:hidden flex items-center space-x-4">
+            <Link
+              to={"/login"}
+              className="bg-transparent text-white py-2 px-4 border border-white rounded"
+            >
               Login
             </Link>
-            <Link to={"/courses"} className="bg-transparent text-white py-2 px-4 border border-white rounded">
+            <Link
+              to={"/courses"}
+              className="bg-transparent text-white py-2 px-4 border border-white rounded"
+            >
+              Join Now
+            </Link>
+          </div>
+
+          {/* Navbar for desktop */}
+          <div className="hidden sm:flex items-center space-x-4">
+            <Link
+              to={"/login"}
+              className="bg-transparent text-white py-2 px-4 border border-white rounded"
+            >
+              Login
+            </Link>
+            <Link
+              to={"/courses"}
+              className="bg-transparent text-white py-2 px-4 border border-white rounded"
+            >
               Join Now
             </Link>
           </div>
