@@ -155,53 +155,35 @@ function Signup() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-black to-gray-800 min-h-screen">
-      <div className="flex items-center justify-center text-white px-4 sm:px-6 md:px-8">
+    <div className="bg-gradient-to-r from-black to-gray-800">
+      <div className="h-screen container mx-auto flex items-center justify-center text-white px-4 sm:px-6 md:px-8">
         {/* Header */}
         <header className="absolute top-0 left-0 w-full flex justify-between items-center p-5">
           <div className="flex items-center space-x-2">
-            <img
-              src="logo.webp"
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full"
-              alt="Logo"
-            />
-            <Link
-              to={"/"}
-              className="text-xl sm:text-2xl text-pink-600 font-bold font-serif"
-            >
+            <img src="logo.webp" className="w-24 h-24 rounded-full" alt="logo" />
+            <Link to={"/"} className="text-2xl text-pink-600 font-bold font-serif">
               HustleLearn
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link
-              to={"/login"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded text-xs sm:text-sm"
-            >
+            <Link to={"/login"} className="bg-transparent text-white py-2 px-4 border border-white rounded">
               Login
             </Link>
-            <Link
-              to={"/courses"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded text-xs sm:text-sm"
-            >
+            <Link to={"/courses"} className="bg-transparent text-white py-2 px-4 border border-white rounded">
               Join Now
             </Link>
           </div>
         </header>
 
         {/* Signup Form */}
-        <div className="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-lg w-full sm:w-[400px] lg:w-[500px] mt-10 sm:mt-20">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
+        <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full sm:w-[400px] md:w-[500px] mt-20">
+          <h2 className="text-2xl font-bold mb-4 text-center">
             Welcome to <span className="text-pink-600">HustleLearn</span>
           </h2>
-          <p className="text-center text-gray-400 mb-6 text-sm sm:text-base">
-            Signup to join!
-          </p>
+          <p className="text-center text-gray-400 mb-6">Signup to join!</p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label
-                htmlFor="firstname"
-                className="text-gray-400 mb-2 text-sm sm:text-base"
-              >
+              <label htmlFor="firstname" className="text-gray-400 mb-2">
                 Firstname
               </label>
               <input
@@ -209,15 +191,12 @@ function Signup() {
                 id="firstname"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Your Firstname"
               />
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="lastname"
-                className="text-gray-400 mb-2 text-sm sm:text-base"
-              >
+              <label htmlFor="lastname" className="text-gray-400 mb-2">
                 Lastname
               </label>
               <input
@@ -225,15 +204,12 @@ function Signup() {
                 id="lastname"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Your Lastname"
               />
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="text-gray-400 mb-2 text-sm sm:text-base"
-              >
+              <label htmlFor="email" className="text-gray-400 mb-2">
                 Email
               </label>
               <input
@@ -241,15 +217,12 @@ function Signup() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Your Email"
               />
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="text-gray-400 mb-2 text-sm sm:text-base"
-              >
+              <label htmlFor="password" className="text-gray-400 mb-2">
                 Password
               </label>
               <input
@@ -257,18 +230,16 @@ function Signup() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Your Password"
               />
             </div>
             {errorMessage && (
-              <div className="mb-4 text-red-500 text-center text-sm sm:text-base">
-                {errorMessage}
-              </div>
+              <div className="mb-4 text-red-500 text-center">{errorMessage}</div>
             )}
             <button
               type="submit"
-              className="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-md text-white font-bold text-sm sm:text-base"
+              className="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-md text-white font-bold"
             >
               Signup
             </button>
